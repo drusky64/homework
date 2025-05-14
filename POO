@@ -1,0 +1,125 @@
+public class Main {
+    public static void main(String[] args) {
+        // Criando a primeira conta
+        ContaBancaria c1 = new ContaBancaria(1001, "Ana Silva", 500.0);
+        System.out.println("Conta 1 - Titular: " + c1.getTitular());
+        System.out.printf("Saldo inicial (c1): R$%.2f\n", c1.getSaldo());
+        
+        // Operações na primeira conta
+        c1.depositar(150.0);
+        System.out.printf("Após depósito de R$150.00: R$%.2f\n", c1.getSaldo());
+        
+        boolean ok = c1.sacar(700.0);
+        System.out.println("Tentativa de saque de R$700.00: " + (ok ? "sucesso" : "falha"));
+        System.out.printf("Saldo final (c1): R$%.2f\n\n", c1.getSaldo());
+
+        // Criando a segunda conta
+        ContaBancaria c2 = new ContaBancaria(1002, "Carlos Oliveira", 1000.0);
+        System.out.println("Conta 2 - Titular: " + c2.getTitular());
+        System.out.printf("Saldo inicial (c2): R$%.2f\n", c2.getSaldo());
+        
+        // Operações na segunda conta
+        c2.depositar(300.0);
+        System.out.printf("Após depósito de R$300.00: R$%.2f\n", c2.getSaldo());
+        
+        ok = c2.sacar(1200.0);
+        System.out.println("Tentativa de saque de R$1200.00: " + (ok ? "sucesso" : "falha"));
+        System.out.printf("Saldo final (c2): R$%.2f\n", c2.getSaldo());
+        
+        // Testando um saque válido
+        ok = c2.sacar(500.0);
+        System.out.println("Tentativa de saque de R$500.00: " + (ok ? "sucesso" : "falha"));
+        System.out.printf("Saldo após saque (c2): R$%.2f\n", c2.getSaldo());
+        
+        // Alterando o titular da conta 2
+        c2.setTitular("Carlos Oliveira Santos");
+        System.out.println("\nTitular da conta 2 atualizado: " + c2.getTitular());
+    }
+}
+_______________________________________________________________________________________________
+
+/**
+ * Classe que representa uma conta bancária com operações básicas
+ */
+public class ContaBancaria {
+    // Atributos privados conforme especificado
+    private int numeroConta;
+    private String titular;
+    private double saldo;
+
+    /**
+     * Construtor da classe ContaBancaria
+     * @param numeroConta Número da conta
+     * @param titular Nome do titular da conta
+     * @param saldoInicial Saldo inicial da conta
+     */
+    public ContaBancaria(int numeroConta, String titular, double saldoInicial) {
+        this.numeroConta = numeroConta;
+        this.titular = titular;
+        this.saldo = saldoInicial;
+    }
+
+    // Getters e Setters
+
+    /**
+     * @return Número da conta
+     */
+    public int getNumeroConta() {
+        return numeroConta;
+    }
+
+    /**
+     * Altera o número da conta
+     * @param numeroConta Novo número da conta
+     */
+    public void setNumeroConta(int numeroConta) {
+        this.numeroConta = numeroConta;
+    }
+
+    /**
+     * @return Nome do titular da conta
+     */
+    public String getTitular() {
+        return titular;
+    }
+
+    /**
+     * Altera o titular da conta
+     * @param titular Novo titular da conta
+     */
+    public void setTitular(String titular) {
+        this.titular = titular;
+    }
+
+    /**
+     * @return Saldo atual da conta
+     */
+    public double getSaldo() {
+        return saldo;
+    }
+
+    // Métodos de operação
+
+    /**
+     * Realiza um depósito na conta
+     * @param valor Valor a ser depositado
+     */
+    public void depositar(double valor) {
+        if (valor > 0) {
+            saldo += valor;
+        }
+    }
+
+    /**
+     * Realiza um saque na conta
+     * @param valor Valor a ser sacado
+     * @return true se o saque foi bem-sucedido, false caso contrário
+     */
+    public boolean sacar(double valor) {
+        if (valor > 0 && valor <= saldo) {
+            saldo -= valor;
+            return true;
+        }
+        return false;
+    }
+}
