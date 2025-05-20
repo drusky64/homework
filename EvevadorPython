@@ -1,0 +1,77 @@
+class Elevador:
+    def __init__(self, capacidade, total_andares):
+        self.inicializar(capacidade, total_andares)
+    
+    def inicializar(self, capacidade, total_andares):
+        self.__andar_atual = 0  # terreo
+        self.__total_andares = total_andares
+        self.__capacidade = capacidade
+        self.__pessoas_presentes = 0
+    
+    # Métodos de acesso (getters)
+    @property
+    def andar_atual(self):
+        return self.__andar_atual
+    
+    @property
+    def total_andares(self):
+        return self.__total_andares
+    
+    @property
+    def capacidade(self):
+        return self.__capacidade
+    
+    @property
+    def pessoas_presentes(self):
+        return self.__pessoas_presentes
+    
+    # Métodos de modificação (setters)
+    @andar_atual.setter
+    def andar_atual(self, valor):
+        if 0 <= valor <= self.__total_andares:
+            self.__andar_atual = valor
+    
+    @total_andares.setter
+    def total_andares(self, valor):
+        if valor > 0:
+            self.__total_andares = valor
+    
+    @capacidade.setter
+    def capacidade(self, valor):
+        if valor > 0:
+            self.__capacidade = valor
+    
+    @pessoas_presentes.setter
+    def pessoas_presentes(self, valor):
+        if 0 <= valor <= self.__capacidade:
+            self.__pessoas_presentes = valor
+    
+    # Métodos de operação
+    def entrar(self):
+        if self.__pessoas_presentes < self.__capacidade:
+            self.__pessoas_presentes += 1
+            return True
+        return False
+    
+    def sair(self):
+        if self.__pessoas_presentes > 0:
+            self.__pessoas_presentes -= 1
+            return True
+        return False
+    
+    def subir(self):
+        if self.__andar_atual < self.__total_andares:
+            self.__andar_atual += 1
+            return True
+        return False
+    
+    def descer(self):
+        if self.__andar_atual > 0:
+            self.__andar_atual -= 1
+            return True
+        return False
+    
+    def __str__(self):
+        return (f"Elevador: andar atual {self.__andar_atual}, "
+                f"{self.__pessoas_presentes}/{self.__capacidade} pessoas, "
+                f"total de {self.__total_andares} andares")
